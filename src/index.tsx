@@ -1,17 +1,21 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import * as styles from "./styles.scss";
 
-import { Hello } from "./components/Hello";
+import { Hello } from "./components/hello";
 
-let App = () => {
-    return <Hello
-        compiler="TypeScript"
-        framework="React"
-    />;
+const App = () => {
+    return(
+        <React.Fragment>
+            <Hello 
+                compiler={333}
+                framework="Jalever"
+            />
+        </React.Fragment>
+    );
 };
 
-
 ReactDOM.render(
-    <App />,
+    <App/>,
     document.getElementById("root")
 );
