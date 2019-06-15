@@ -3,9 +3,7 @@ const webpack = require("webpack");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-
 module.exports = {
-    mode: "development",
     entry: {
         app: "./src/index.tsx"
     },
@@ -17,52 +15,42 @@ module.exports = {
     devtool: "inline-source-map",
     devServer: {
         contentBase: path.resolve(__dirname, "dist"),
-        hot: true,
-        host: "localhost",
-        port: "8806",
-        historyApiFallback: true
+        hot: true
     },
     module: {
         rules: [{
-            test: /\.jsx$/,
-            exclude: /node_modules/,
-            use: ["babel-loader"]
-        },{
-            test: /\.scss$/,
-            loader: [
-                {
+                test: /\.scss$/,
+                use: [{
                     loader: "style-loader"
-                },{
+                }, {
+                    loader: "css-modules-typescript-loader"
+                }, {
                     loader: "css-loader",
                     options: {
                         modules: true,
-                        sourceMap: true,
-                        localIdentName: "[local]___[hash:base64:5]"
+                        sourceMap: true
                     }
-                },{
+                }, {
                     loader: "sass-loader"
-                }
-            ] 
-        },{
-            test: /\.(svg|gif|png|jpg)$/,
-            use: ["file-loader"]
-        },{
-            test:/\.tsx?$/,
-            loader: "awesome-typescript-loader"
-        },{
-            enforce: "pre",
-            test:/\.js$/,
-            loader: "source-map-loader"
-        }]
+                }]
+            }, {
+                test: /\.tsx?$/,
+                use: ["awesome-typescript-loader"]
+            },
+            {
+                enforce: "pre",
+                test: /\.js$/,
+                use: ["source-map-loader"]
+            }
+        ]
     },
     plugins: [
-        new CleanWebpackPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            title: "START",
+            title: "Chatbot",
             template: "./src/index.html",
-            filename: "index.html",
-        })
+            filename: "index.html"
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ],
     optimization: {
         runtimeChunk: "single",
@@ -72,8 +60,8 @@ module.exports = {
     },
     resolve: {
         alias: {
-            "@": path.resolve(__dirname, "src")
+            "@components": path.resolve(__dirname, "src/components")
         },
-        extensions: [".tsx", ".ts", ".js"]
+        extensions: [".ts", ".tsx", ".js", ".json", ".scss", ".css"]
     }
 };

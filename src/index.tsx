@@ -1,16 +1,22 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import * as styles from "./styles.scss";
 
-import { Hello } from "./components/hello";
+import Hello from "@components/Hello/index";
+
+import Footer from "@components/Footer/index";
+
+import * as styles from "./styles.scss";
 
 const App = () => {
     return(
         <React.Fragment>
+            <h1 className={styles.title}>Hello Jalever</h1>
             <Hello 
-                compiler={333}
-                framework="Jalever"
+                compiler="Youtube"
+                framework="Google"
             />
+
+            <Footer />
         </React.Fragment>
     );
 };
